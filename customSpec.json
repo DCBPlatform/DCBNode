@@ -1,6 +1,6 @@
 {
   "name": "DCB Exchange",
-  "id": "dcb_exchange_live",
+  "id": "dcb_exchange",
   "chainType": "Live",
   "bootNodes": [],
   "telemetryEndpoints": null,
