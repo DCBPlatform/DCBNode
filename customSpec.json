@@ -36,8 +36,12 @@
         "balances": [
           [
             "5EUxFDn9K7GQhLNxGHsCcTeXNuuFUVmSfV4fkdLjgm4VyNdq",
-            100000000000000000000000000000000000000000000000000
-          ]
+            100000000000000000000000000000000000
+          ],
+          [
+            "5Ek7J4DDfkUZoFBzLYRYZ9aa4xSnXH3hjKzXNt97RVTynzBj",
+            100000000000000000000000000000000000
+          ]          
         ]
       },
       "palletSudo": {
