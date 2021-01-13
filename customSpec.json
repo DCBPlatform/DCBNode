@@ -4,7 +4,7 @@
   "chainType": "Live",
   "bootNodes": [],
   "telemetryEndpoints": null,
-  "protocolId": null,
+  "protocolId": "888",
   "properties": null,
   "consensusEngine": null,
   "lightSyncState": null,
@@ -36,7 +36,7 @@
         "balances": [
           [
             "5EUxFDn9K7GQhLNxGHsCcTeXNuuFUVmSfV4fkdLjgm4VyNdq",
-            1000000000000000000
+            1000000000000000000000000000
           ]
         ]
       },
