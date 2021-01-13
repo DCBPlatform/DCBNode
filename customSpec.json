@@ -16,18 +16,18 @@
       },
       "palletAura": {
         "authorities": [
-          "5GuMuc2AwPwqFCE1d7pNQ5sbpjqDTNtc8wnozpokkrJPsx7R",
-          "5CaJeQ5CCSFWmvxGG5JEAfhEqK29m2DjKYQXopyVw2H5ZyQ3"
+          "5Fe47dRw8XkxjacWnYPgsySBX4ztjfeQ3VPq1EmdENSkUK7S",
+          "5DA2TEgytcDxjNtEtcBTNme9G5CviC9NSFJmTaPmpAtBwcR3"
         ]
       },
       "palletGrandpa": {
         "authorities": [
           [
-            "5Ec116NBnkNA8Exzjo8teSunMbdah4oFJ1bWMm9JdnrHfXru",
+            "5DkM1XNGXRxkY98u7uMkZWNLPpbM5Z3hqVGPwKAgo9ZCwk8p",
             1
           ],
           [
-            "5FyDqWN3TQoEuw5Ktcqpt4MK4Ujvguyb2yiwtxiCX6yo5Ui3",
+            "5Ewqz9CCUDXwXN1QB95KKnThVQEjtHURRoZTSQq6LhHbrs59",
             1
           ]
         ]
@@ -36,11 +36,11 @@
         "balances": [
           [
             "5EUxFDn9K7GQhLNxGHsCcTeXNuuFUVmSfV4fkdLjgm4VyNdq",
-            1000000000000000000000000000
+            500000000000000000000000000000000000000000000000000
           ],
           [
             "5Ek7J4DDfkUZoFBzLYRYZ9aa4xSnXH3hjKzXNt97RVTynzBj",
-            1000000000000000000000000000
+            500000000000000000000000000000000000000000000000000
           ]
         ]
       },
