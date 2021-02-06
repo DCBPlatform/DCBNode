@@ -40,8 +40,6 @@ pub use frame_support::{
 	},
 };
 
-/// Import the template pallet.
-pub use pallet_template;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -97,7 +95,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("node-template"),
 	impl_name: create_runtime_str!("node-template"),
 	authoring_version: 1,
-	spec_version: 1,
+	spec_version: 4,
 	impl_version: 1,
 	apis: RUNTIME_API_VERSIONS,
 	transaction_version: 1,
@@ -263,9 +261,63 @@ impl pallet_sudo::Trait for Runtime {
 	type Call = Call;
 }
 
-/// Configure the template pallet in pallets/template.
-impl pallet_template::Trait for Runtime {
+parameter_types! {
+	pub const ConfigDepositBase: u64 = 10;
+	pub const FriendDepositFactor: u64 = 1;
+	pub const MaxFriends: u16 = 10;
+	pub const RecoveryDeposit: u64 = 10;
+}
+
+
+impl pallet_recovery::Trait for Runtime {
 	type Event = Event;
+	type Call = Call;
+	type Currency = Balances;
+	type ConfigDepositBase = ConfigDepositBase;
+	type FriendDepositFactor = FriendDepositFactor;
+	type MaxFriends = MaxFriends;
+	type RecoveryDeposit = RecoveryDeposit;	
+}
+
+parameter_types! {
+	pub const DepositBase: u64 = 1;
+	pub const DepositFactor: u64 = 1;
+	pub const MaxSignatories: u16 = 3;
+}
+
+impl pallet_multisig::Trait for Runtime {
+	type Event = Event;
+	type Call = Call;
+	type Currency = Balances;
+	type DepositBase = DepositBase;
+	type DepositFactor = DepositFactor;
+	type MaxSignatories = MaxSignatories;
+	type WeightInfo = ();
+}
+
+impl pallet_exchange::Trait for Runtime {
+	type Event = Event;
+	type Currency = Balances;
+	// type AccountOperation: AccountOperation;
+	// type AccountVault: AccountVault;
+}
+
+// Define the types required by the Scheduler pallet.
+parameter_types! {
+    pub MaximumSchedulerWeight: Weight = Perbill::from_percent(80) * MaximumBlockWeight::get();
+    pub const MaxScheduledPerBlock: u32 = 50;
+}
+
+// Configure the runtime's implementation of the Scheduler pallet.
+impl pallet_scheduler::Trait for Runtime {
+    type Event = Event;
+    type Origin = Origin;
+    type PalletsOrigin = OriginCaller;
+    type Call = Call;
+    type MaximumWeight = MaximumSchedulerWeight;
+    type ScheduleOrigin = frame_system::EnsureRoot<AccountId>;
+    type MaxScheduledPerBlock = MaxScheduledPerBlock;
+    type WeightInfo = ();
 }
 
 // Create the runtime by composing the FRAME pallets that were previously configured.
@@ -284,9 +336,12 @@ construct_runtime!(
 		TransactionPayment: pallet_transaction_payment::{Module, Storage},
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		// Include the custom logic from the template pallet in the runtime.
-		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
-		Nicks: pallet_nicks::{Module, Call, Storage, Event<T>},
 		Contracts: pallet_contracts::{Module, Call, Config, Storage, Event<T>},
+		Scheduler: pallet_scheduler::{Module, Call, Storage, Event<T>},
+		Exchange: pallet_exchange::{Module, Call, Storage, Event<T>},
+		Recovery: pallet_recovery::{Module, Call, Storage, Event<T>},
+		Multisig: pallet_multisig::{Module, Call, Storage, Event<T>},
+
 	}
 );
 
@@ -521,38 +576,38 @@ impl_runtime_apis! {
 		
 }
 
-parameter_types! {
-    // Choose a fee that incentivizes desireable behavior.
-    pub const NickReservationFee: u128 = 100;
-    pub const MinNickLength: usize = 6;
-    // Maximum bounds on storage are important to secure your chain.
-    pub const MaxNickLength: usize = 32;
-}
+// parameter_types! {
+//     // Choose a fee that incentivizes desireable behavior.
+//     pub const NickReservationFee: u128 = 100;
+//     pub const MinNickLength: usize = 6;
+//     // Maximum bounds on storage are important to secure your chain.
+//     pub const MaxNickLength: usize = 32;
+// }
 
-impl pallet_nicks::Trait for Runtime {
-    // The Balances pallet implements the ReservableCurrency trait.
-    // https://substrate.dev/rustdocs/v2.0.0/pallet_balances/index.html#implementations-2
-    type Currency = pallet_balances::Module<Runtime>;
+// impl pallet_nicks::Trait for Runtime {
+//     // The Balances pallet implements the ReservableCurrency trait.
+//     // https://substrate.dev/rustdocs/v2.0.0/pallet_balances/index.html#implementations-2
+//     type Currency = pallet_balances::Module<Runtime>;
 
-    // Use the NickReservationFee from the parameter_types block.
-    type ReservationFee = NickReservationFee;
+//     // Use the NickReservationFee from the parameter_types block.
+//     type ReservationFee = NickReservationFee;
 
-    // No action is taken when deposits are forfeited.
-    type Slashed = ();
+//     // No action is taken when deposits are forfeited.
+//     type Slashed = ();
 
-    // Configure the FRAME System Root origin as the Nick pallet admin.
-    // https://substrate.dev/rustdocs/v2.0.0/frame_system/enum.RawOrigin.html#variant.Root
-    type ForceOrigin = frame_system::EnsureRoot<AccountId>;
+//     // Configure the FRAME System Root origin as the Nick pallet admin.
+//     // https://substrate.dev/rustdocs/v2.0.0/frame_system/enum.RawOrigin.html#variant.Root
+//     type ForceOrigin = frame_system::EnsureRoot<AccountId>;
 
-    // Use the MinNickLength from the parameter_types block.
-    type MinLength = MinNickLength;
+//     // Use the MinNickLength from the parameter_types block.
+//     type MinLength = MinNickLength;
 
-    // Use the MaxNickLength from the parameter_types block.
-    type MaxLength = MaxNickLength;
+//     // Use the MaxNickLength from the parameter_types block.
+//     type MaxLength = MaxNickLength;
 
-    // The ubiquitous event type.
-    type Event = Event;
-}
+//     // The ubiquitous event type.
+//     type Event = Event;
+// }
 
 pub const MILLICENTS: Balance = 1_000_000_000;
 pub const CENTS: Balance = 1_000 * MILLICENTS;
