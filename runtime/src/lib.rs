@@ -95,7 +95,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("node-template"),
 	impl_name: create_runtime_str!("node-template"),
 	authoring_version: 1,
-	spec_version: 4,
+	spec_version: 8,
 	impl_version: 1,
 	apis: RUNTIME_API_VERSIONS,
 	transaction_version: 1,
@@ -302,6 +302,19 @@ impl pallet_exchange::Trait for Runtime {
 	// type AccountVault: AccountVault;
 }
 
+impl pallet_kyc::Trait for Runtime {
+	type Event = Event;
+}
+
+impl pallet_token::Trait for Runtime {
+	type Event = Event;
+	type Currency = Balances;
+}
+
+impl pallet_referral::Trait for Runtime {
+	type Event = Event;
+}
+
 // Define the types required by the Scheduler pallet.
 parameter_types! {
     pub MaximumSchedulerWeight: Weight = Perbill::from_percent(80) * MaximumBlockWeight::get();
@@ -335,12 +348,17 @@ construct_runtime!(
 		Balances: pallet_balances::{Module, Call, Storage, Config<T>, Event<T>},
 		TransactionPayment: pallet_transaction_payment::{Module, Storage},
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
-		// Include the custom logic from the template pallet in the runtime.
+		
+		// Custom pallet
+		
 		Contracts: pallet_contracts::{Module, Call, Config, Storage, Event<T>},
 		Scheduler: pallet_scheduler::{Module, Call, Storage, Event<T>},
 		Exchange: pallet_exchange::{Module, Call, Storage, Event<T>},
 		Recovery: pallet_recovery::{Module, Call, Storage, Event<T>},
 		Multisig: pallet_multisig::{Module, Call, Storage, Event<T>},
+		Kyc: pallet_kyc::{Module, Call, Storage, Event<T>},
+		Token: pallet_token::{Module, Call, Storage, Event<T>},
+		Referral: pallet_referral::{Module, Call, Storage, Event<T>},		
 
 	}
 );

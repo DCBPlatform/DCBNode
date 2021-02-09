@@ -58,10 +58,12 @@ sp-std = { default-features = false, version = '2.0.0' }
 sp-transaction-pool = { default-features = false, version = '2.0.0' }
 sp-version = { default-features = false, version = '2.0.0' }
 
-[dependencies.pallet-exchange]
-default_features = false
-git = 'https://github.com/DCBPlatform/pallet-exchange'
-branch = 'main'
+pallet-bridge = { path = '../pallets/bridge', default-features = false, version = '2.0.0' }
+pallet-exchange = { path = '../pallets/exchange', default-features = false, version = '2.0.0' }
+pallet-kyc = { path = '../pallets/kyc', default-features = false, version = '2.0.0' }
+pallet-pool = { path = '../pallets/pool', default-features = false, version = '2.0.0' }
+pallet-referral = { path = '../pallets/referral', default-features = false, version = '2.0.0' }
+pallet-token = { path = '../pallets/token', default-features = false, version = '2.0.0' }
 
 [features]
 default = ['std']
@@ -98,7 +100,12 @@ std = [
     'pallet-transaction-payment/std',
     'pallet-transaction-payment-rpc-runtime-api/std',
 
+    'pallet-bridge/std',
     'pallet-exchange/std',
+    'pallet-kyc/std',
+    'pallet-pool/std',
+    'pallet-referral/std',
+    'pallet-token/std',    
 
     'sp-api/std',
     'sp-block-builder/std',

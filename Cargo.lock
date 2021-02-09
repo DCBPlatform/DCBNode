@@ -3300,18 +3300,23 @@ dependencies = [
  "hex-literal",
  "pallet-aura",
  "pallet-balances",
+ "pallet-bridge",
  "pallet-contracts",
  "pallet-contracts-primitives",
  "pallet-contracts-rpc-runtime-api",
  "pallet-exchange",
  "pallet-grandpa",
+ "pallet-kyc",
  "pallet-multisig",
  "pallet-node-authorization",
+ "pallet-pool",
  "pallet-randomness-collective-flip",
  "pallet-recovery",
+ "pallet-referral",
  "pallet-scheduler",
  "pallet-sudo",
  "pallet-timestamp",
+ "pallet-token",
  "pallet-transaction-payment",
  "pallet-transaction-payment-rpc-runtime-api",
  "parity-scale-codec",
@@ -3529,6 +3534,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-bridge"
+version = "2.0.0"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-contracts"
 version = "2.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3597,13 +3616,14 @@ dependencies = [
 [[package]]
 name = "pallet-exchange"
 version = "2.0.0"
-source = "git+https://github.com/DCBPlatform/pallet-exchange?branch=main#a2a6083d1cc7749eda53acb875abe1668bb60856"
 dependencies = [
  "frame-support",
  "frame-system",
  "pallet-balances",
+ "pallet-token",
  "parity-scale-codec",
  "sp-core",
+ "sp-io",
  "sp-runtime",
  "sp-std",
  "sp-storage",
@@ -3650,6 +3670,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-kyc"
+version = "2.0.0"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-multisig"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3682,6 +3716,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-pool"
+version = "2.0.0"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "pallet-token",
+ "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "sp-storage",
+]
+
+[[package]]
 name = "pallet-randomness-collective-flip"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3709,6 +3759,21 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
+]
+
+[[package]]
+name = "pallet-referral"
+version = "2.0.0"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "sp-storage",
 ]
 
 [[package]]
@@ -3792,6 +3857,20 @@ dependencies = [
  "sp-runtime",
  "sp-std",
  "sp-timestamp",
+]
+
+[[package]]
+name = "pallet-token"
+version = "2.0.0"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-balances",
+ "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
