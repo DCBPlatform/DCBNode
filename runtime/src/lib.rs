@@ -95,7 +95,7 @@ pub const VERSION: RuntimeVersion = RuntimeVersion {
 	spec_name: create_runtime_str!("node-template"),
 	impl_name: create_runtime_str!("node-template"),
 	authoring_version: 1,
-	spec_version: 8,
+	spec_version: 13,
 	impl_version: 1,
 	apis: RUNTIME_API_VERSIONS,
 	transaction_version: 1,
@@ -295,11 +295,15 @@ impl pallet_multisig::Trait for Runtime {
 	type WeightInfo = ();
 }
 
+
+impl pallet_bridge::Trait for Runtime {
+	type Event = Event;
+	type Currency = Balances;
+}
+
 impl pallet_exchange::Trait for Runtime {
 	type Event = Event;
 	type Currency = Balances;
-	// type AccountOperation: AccountOperation;
-	// type AccountVault: AccountVault;
 }
 
 impl pallet_kyc::Trait for Runtime {
@@ -311,17 +315,20 @@ impl pallet_token::Trait for Runtime {
 	type Currency = Balances;
 }
 
+impl pallet_bazaar::Trait for Runtime {
+	type Event = Event;
+	type Currency = Balances;
+}
+
 impl pallet_referral::Trait for Runtime {
 	type Event = Event;
 }
 
-// Define the types required by the Scheduler pallet.
 parameter_types! {
     pub MaximumSchedulerWeight: Weight = Perbill::from_percent(80) * MaximumBlockWeight::get();
     pub const MaxScheduledPerBlock: u32 = 50;
 }
 
-// Configure the runtime's implementation of the Scheduler pallet.
 impl pallet_scheduler::Trait for Runtime {
     type Event = Event;
     type Origin = Origin;
@@ -333,7 +340,8 @@ impl pallet_scheduler::Trait for Runtime {
     type WeightInfo = ();
 }
 
-// Create the runtime by composing the FRAME pallets that were previously configured.
+
+
 construct_runtime!(
 	pub enum Runtime where
 		Block = Block,
@@ -350,7 +358,8 @@ construct_runtime!(
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		
 		// Custom pallet
-		
+		Bazaar: pallet_bazaar::{Module, Call, Storage, Event<T>},
+		Bridge: pallet_bridge::{Module, Call, Storage, Event<T>},
 		Contracts: pallet_contracts::{Module, Call, Config, Storage, Event<T>},
 		Scheduler: pallet_scheduler::{Module, Call, Storage, Event<T>},
 		Exchange: pallet_exchange::{Module, Call, Storage, Event<T>},

@@ -1,10 +1,10 @@
 [package]
-authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
+authors = ['DCB Platform <https://github.com/DCBPlatform>']
 edition = '2018'
-homepage = 'https://substrate.dev'
+homepage = 'https://dcb.my'
 license = 'Unlicense'
 name = 'node-template-runtime'
-repository = 'https://github.com/substrate-developer-hub/substrate-node-template/'
+repository = 'https://github.com/DCBPlatform/DCBRuntime'
 version = '2.0.0'
 
 [package.metadata.docs.rs]
@@ -58,6 +58,7 @@ sp-std = { default-features = false, version = '2.0.0' }
 sp-transaction-pool = { default-features = false, version = '2.0.0' }
 sp-version = { default-features = false, version = '2.0.0' }
 
+pallet-bazaar = { path = '../pallets/bazaar', default-features = false, version = '2.0.0' }
 pallet-bridge = { path = '../pallets/bridge', default-features = false, version = '2.0.0' }
 pallet-exchange = { path = '../pallets/exchange', default-features = false, version = '2.0.0' }
 pallet-kyc = { path = '../pallets/kyc', default-features = false, version = '2.0.0' }
@@ -100,6 +101,7 @@ std = [
     'pallet-transaction-payment/std',
     'pallet-transaction-payment-rpc-runtime-api/std',
 
+    'pallet-bazaar/std',
     'pallet-bridge/std',
     'pallet-exchange/std',
     'pallet-kyc/std',
